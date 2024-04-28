@@ -4,5 +4,5 @@
 
 ## Version 1
 
-**Completed Till Logger,Exception,Model Training with all ML Algorithms**
+* **Completed Till Logger,Exception,Model Training with all ML Algorithms**
 
