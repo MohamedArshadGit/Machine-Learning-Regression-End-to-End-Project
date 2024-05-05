@@ -1,8 +1,8 @@
 import sys # any exception happens sys haves that information..# to work with system level operations
 #and interactions of python interpreter sys can be used
 
-import logger
-from logger import *
+#import logger
+from src.logger import *
 
 def error_message_detail(error,error_detail:sys): #error_detail is a reference to the sys module, 
     #allowing access to information about the exception.

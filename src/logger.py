@@ -77,9 +77,9 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-if __name__=="__main__": # Important =>The line if __name__ == "__main__": is a common idiom used 
-#in Python scripts to check if the script is being run as the main program or if it's being imported
-# as a module into another script.
-# Important=>If the script is being imported as a module into another script, __name__ is set to the
-# name of the module instead of "__main__"
-    logging.info("Logging has started Now")
+# if __name__=="__main__": # Important =>The line if __name__ == "__main__": is a common idiom used 
+# #in Python scripts to check if the script is being run as the main program or if it's being imported
+# # as a module into another script.
+# # Important=>If the script is being imported as a module into another script, __name__ is set to the
+# # name of the module instead of "__main__"
+#     logging.info("Logging has started Now")

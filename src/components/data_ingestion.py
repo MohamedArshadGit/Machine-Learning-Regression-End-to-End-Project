@@ -1,8 +1,7 @@
 #Data Ingestion-Y we need?A data will be scraped and stored in diffrent different places 
 #We will connect and use that data for our project purposes
 
-#a data ingestion module serves as a foundational component
-# in data pipelines, enabling organizations
+#A Data ingestion module serves as a foundational component in data pipelines, enabling organizations
 # =>to efficiently "collect",
 # =>"process",
 # =>"utilize data"
@@ -17,13 +16,14 @@ from src.exception import CustomException
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass #The dataclasses module in Python provides a decorator from 3.7 python
-# and functions for automatically generates special methods
+# and functions "for automatically generates special methods" like
 # such as __init__() or 'constructor method' of a class/'instance method'/'initializer method' 
 # and __repr__() or __eq__() to user-defined classes,
 # making it easier to create classes that primarily store data.
 
 @dataclass
 class DataingestionConfig(): #any input i require i ll put it here in dataingestion config
+    #Specifying paths to store train,test and raw data
     train_data_path: str = os.path.join('artifacts','train.csv') #we are using dataclasses module,so little bit different we dont need to initialize the __init_() Constructor
     test_data_path: str = os.path.join('artifacts','test.csv')
     raw_data_path: str = os.path.join('artifacts','raw_data.csv')
@@ -50,7 +50,8 @@ class DataingesttionConfig_():
 class Dataingestion():
     def __init__(self):
         self.ingestion_config=DataingestionConfig() #self.ingestion_config holds all three paths: train_data_path, test_data_path, and raw_data_path.
-        #self.ingestion_config is similiar to variable called as "INSTANCE"
+        #self.ingestion_config is similiar to variable called as "INSTANCE VARIABLE" when used 
+        # in constructor method or "attributes" when not used in constructor method
         #self.ingestion_config is like a variable specific to each instance of the Dataingestion class,
         # holding a reference to an object of type DataingestionConfig.
         
@@ -61,12 +62,14 @@ class Dataingestion():
             df=pd.read_csv('stud.csv')
             logging.info('Read the dataset as Dataframe')
             
-            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path,index=False,header=True) #to store raw data
             
+            os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True) #why we are using this line?
+            
+            
             train_set,test_set=train_test_split(df,test_size=0.2,random_state=42)
-            train_set.to_csv(self.ingestion_config.train_data_path,index=False,header=True) #to store train data
-            test_set.to_csv(self.ingestion_config.test_data_path,index=False,header=True) #to store test data
+            train_set.to_csv(self.ingestion_config.train_data_path,index=False,header=True) #to store train data in train_data_path
+            test_set.to_csv(self.ingestion_config.test_data_path,index=False,header=True) #to store test data in test_data_path
             
             logging.info("Ingestion of data Completed")
             
@@ -77,6 +80,11 @@ class Dataingestion():
             
         except Exception as e:
             raise CustomException(e,sys) #SEE EXCEPTION HOW IT WORKS
+        
+if __name__=="__main__":
+    obj=Dataingestion()
+    obj.initiate_data_ingestion()
+    
 
             
             
