@@ -6,3 +6,6 @@
 
 * **Completed Till Logger,Exception,Model Training with all ML Algorithms**
 
+## Version 1.1
+
+*  **Completed Data Ingestion Part in src\components**
