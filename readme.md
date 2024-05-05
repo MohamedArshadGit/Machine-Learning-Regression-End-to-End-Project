@@ -9,3 +9,8 @@
 ## Version 1.1
 
 *  **Completed Data Ingestion Part in src\components**
+
+
+## Version 1.2
+
+*  **Completed Data Transformation part to 50%**
