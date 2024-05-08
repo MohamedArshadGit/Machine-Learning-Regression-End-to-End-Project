@@ -30,3 +30,23 @@ def add_sub(x,y):
     return x+y,x-y #returning multiple values in a statement
 add,sub=add_sub(10,5)
 print(add,"\n",sub)
+
+def detail(name,age):
+    return f"{age} \t {name}"
+person=detail("alice",28) #person is called as variable of a function call
+# "alice" 28 is called as attributes
+print(person)
+
+def detail(name,age=None):
+    return f"{age} \t {name}"
+obj=detail("alice")
+print(obj)
+
+def sum(x,*y):
+    c=x
+    for i in y:
+        c=c+i
+    return c
+
+res=sum(5,10,15) #res is called as variable of a function call
+print(res)

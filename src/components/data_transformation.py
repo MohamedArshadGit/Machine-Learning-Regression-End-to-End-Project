@@ -18,14 +18,22 @@ from src.exception import CustomException
 
 @dataclass
 class DataTransformation_Config():
-    preprocessor_obj_file_path= os.path.join('artifacts','preprocessor.pkl') 
+    preprocessor_obj_file_path= os.path.join('artifacts','preprocessor.pkl') #we can use without 
+    # mentioning data type str also or preprocessor_obj_file_path :str 
+    #if not used ,if suppose we need to have a check only str should other data type
+    # should not come it will not check if we mention data type like str and other
+    # data type has came then it will raise error
     
+    #PICKLE FILES CAN BE USED TO SAVE THE RESULTS OF CATEGORICAL ENCODING OR OTHER 
+       # DATA PREPROCESSING STEPS
+       
 class DataTransformation():
    def __init__(self):
        self.Data_Transformation_config = DataTransformation_Config()
   
    def get_data_transformer_object(self): 
        #this function is responsible to convert categorical into numerical or standard scaler etc
+       
        #NOTES:
        #PICKLE FILES CAN BE USED TO SAVE THE RESULTS OF CATEGORICAL ENCODING OR OTHER 
        # DATA PREPROCESSING STEPS
@@ -74,7 +82,19 @@ class DataTransformation():
             )
             
             return preprocessor
+        
        except Exception as e:
            raise CustomException(e,sys)
+       
+   def initiate_transformation(self,train_path,test_path):
+       
+       train_df=pd.read_csv(train_path)
+       test_df=pd.read_csv(test_path)
+       
+       logging.info("Read Train and test data completed")
+       
+       logging.info("Obtaining Preprocessor object")
+       
+       preprocessor_obj= self.get_data_transformer_object()
 
        
