@@ -50,3 +50,38 @@ def sum(x,*y):
 
 res=sum(5,10,15) #res is called as variable of a function call
 print(res)
+
+a=10
+def func():
+    a=20
+    print("inside the function",a)
+func()
+print("global variable",a)
+
+# To Alter the Global variable inside the function use "global"
+b=10
+def func1():
+    global b 
+    b=20
+    print("inside the function",b)
+func1()
+print("global variable",b)
+y=100
+z=200
+#print(globals()) #if we use globals() inside the function it will display all the global variables outside the function
+
+zz=10001
+yy=200000001
+
+def access_globals():
+    #print(f"all global variables:{globals()}")
+    
+    #if we need to access specific global variable
+    x=globals()['yy']
+    print("Accessing only specific global variable yy:",x)
+    #modify using globals
+    globals()['yy']=300000001
+    print("Modifying global variable yy using globals():",yy) #here if we print x it will show 2000001 only
+
+access_globals() 
+    

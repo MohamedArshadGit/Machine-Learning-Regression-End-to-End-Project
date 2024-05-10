@@ -5,6 +5,7 @@ import os
 import sys
 
 import pandas as pd
+import numpy as np
 
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer #responsible for handling missing values ,It do imputation like mean,median,mode etc
@@ -96,5 +97,28 @@ class DataTransformation():
        logging.info("Obtaining Preprocessor object")
        
        preprocessor_obj= self.get_data_transformer_object()
-
        
+       target_column_name='math_score'
+       numerical_column=['reading_score', 
+                           'writing_score']
+       
+       input_feature_train_df = train_df.drop(columns=[target_column_name],axis=1)
+       target_feature_train_df =train_df[target_column_name]
+       
+       input_feature_test_df =test_df.drop(columns=[target_column_name],axis=1)
+       target_feature_test_df =test_df[target_column_name]
+       
+       logging.info(
+           f"Applying preprocessing object on training dataframe and testing dataframe"
+       )
+       
+       input_feature_train_arr = preprocessor_obj.fit_transform(input_feature_train_df)
+       input_feature_test_arr =preprocessor_obj.transform(input_feature_test_df)
+       
+       train_arr = np.c_[input_feature_train_arr,
+                         np.array(target_feature_train_df)] 
+       
+       test_arr = np.c_[input_feature_test_arr,
+                        np.array(target_feature_test_df)] #np.c_ in inbuilt from numpy that
+       #allows to Concatenates the arrays array1 and array2 along their second axis (columns).
+       # This means it stacks the arrays horizontally, joining the columns together.
