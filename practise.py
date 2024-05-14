@@ -85,3 +85,19 @@ def access_globals():
 
 access_globals() 
     
+#filter map reduce
+
+#filter  ==>used for conditional fitering
+evens =list(filter(lambda n:n%2==0,[1,2,3,4,5,6,7,8,9]))
+print(evens)
+
+#map ==>used as a iterator
+squared_no = list(map(lambda n :n**2,[1,2,3,4,5]))
+print(squared_no)
+
+from functools import reduce
+product =reduce(lambda n,m :n*m,[1,2,4,5,6])
+print(product)
+
+doubles = reduce(lambda x, y: x + y, [1, 2, 3, 4, 5])
+print(doubles)
