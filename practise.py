@@ -95,9 +95,51 @@ print(evens)
 squared_no = list(map(lambda n :n**2,[1,2,3,4,5]))
 print(squared_no)
 
+#reduce used for rolling computation like summation or product and returns a single value
 from functools import reduce
 product =reduce(lambda n,m :n*m,[1,2,4,5,6])
 print(product)
 
 doubles = reduce(lambda x, y: x + y, [1, 2, 3, 4, 5])
 print(doubles)
+print()
+
+#######################OOPS#############
+
+##ATTRIBUTES-2 TYPES- 1)INSTANCE ATTRIBUTES-> Defined within the init method 2)CLASS ATTRIBUTES-
+#Defined within the class 
+
+# eg:
+
+class Dog:
+    species ='Shiba ' #class Attributes
+    
+    def __init__(self,Name,age) -> None: # -> None: this means it does not returns any value
+        #Using -> None in the __init__ method (or any method)=> that "does not return a value"
+        # is a way to leverage Python's type hinting for clarity and maintainability.
+        # It communicates the intended use of the method more explicitly to both humans and 
+        # tools that analyze the code.
+        
+        self.name =Name #instance Attributes
+        self.age =age #instance Attributes
+    
+    def bark(self):
+        return f"{self.name} whose age is {self.age} says woof!!!"
+
+#Creating Instance of Dog class
+Dog1 = Dog('Richie',3) # dog1 is an object of Dog class
+
+#calling bark method
+
+print(Dog1.bark()) #called as Method call ,# use paranthesis to call a function
+print(Dog1.species) #using class Attributes
+print(Dog1.name) #note this ,we are printing instance attributes 
+print(Dog1.age)
+
+class computer:
+    def config(self):
+        print("i7,intel")
+com1=computer()
+#com1 =computer #here we can create com1= computer ,without pranthetis at computer but config method
+#should be used without self like def config:
+com1.config()
