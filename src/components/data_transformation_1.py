@@ -14,6 +14,8 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder,StandardScaler
 
+from src.utils1 import *
+
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path = os.path.join('artifacts','preprocessor.pkl')
@@ -34,7 +36,7 @@ class DataTransformation:
             num_pipeline = Pipeline(
                 steps=[
                     ("imputer",SimpleImputer(strategy='median')),
-                    ('scaler',StandardScaler())
+                    ('scaler',StandardScaler(with_mean=False))
                 ]  
             )
             
@@ -42,7 +44,7 @@ class DataTransformation:
                 steps= [
                     ("imputer",SimpleImputer(strategy="most_frequent")), # most frequent means mode
                     ("one hot encoder",OneHotEncoder()),
-                    ("scaler",StandardScaler())
+                    ("scaler",StandardScaler(with_mean=False))
                 ]
             )
             #logging.info('Numerical columns median imputation and Standard scaling completed')
@@ -52,8 +54,8 @@ class DataTransformation:
             
             preprocessor = ColumnTransformer(
                 [
-                    ('num pipeline',num_pipeline,numerical_columns)
-                    ('cat pipeline',cat_pipeline,categorical_columns)
+                    ('num_pipeline',num_pipeline,numerical_columns), #this comma is important
+                    ('cat_pipeline',cat_pipeline,categorical_columns)
                 ]
             )
             
@@ -65,7 +67,6 @@ class DataTransformation:
     
     def initiate_data_transformation(self,train_path,test_path):
         try:
-            
             train_df =pd.read_csv(train_path)
             test_df =pd.read_csv(test_path)
             
@@ -96,6 +97,11 @@ class DataTransformation:
             
             logging.info('Saved Preprocessing Object')
             
+            save_object(
+                file_path = self.Data_Transformation_config.preprocessor_obj_file_path, #check how this line works
+                obj = preprocessor_obj
+            ) #save_object is used for saving the pickle file
+            
             return(train_arr,
                    test_arr,
                    self.Data_Transformation_config.preprocessor_obj_file_path) #check what is this line
@@ -103,7 +109,7 @@ class DataTransformation:
             
             
             
-        except:
-            pass
+        except Exception as e:
+            raise CustomException(e,sys)
         
         
